@@ -1,0 +1,124 @@
+---
+// 👇 1. 로컬 이미지 파일 임포트를 모두 삭제합니다.
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// 👇 2. image 속성을 외부 URL 문자열로 변경했습니다.
+const data = [
+  {
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763002561/Binzip_w6jf3z.svg", // 실제 URL로 변경하세요.
+    year: "2024",
+    title: "빈집 (The Ant)",
+    page: "/the-ant",
+    description: "빈집(The Ant)은 고독한 사회를 조명하는 독립영화입니다. 영화 디자인을 맡아 홍보 콘텐츠, 포스터, 굿즈를 디자인했습니다.",
+    location: "Flim Design"
+  },
+  {
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763289146/flicker1_khedwh.png", // 실제 URL로 변경하세요.
+    year: "2023",
+    title: "껌벅 (The Flicker)",
+    page: "/the-flicker",
+    description: "껌벅(The Flicker)은 숏폼의 사회문화적 문제를 다룬 독립영화입니다. 포스터와 타이틀 디자인을 담당하고, 미술팀으로서 영화 세트의 시각 컨셉을 구현했습니다.",
+    location: "Flim Design"
+  },
+  {
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762534542/longtalk1_tppgtc.png", // 실제 URL로 변경하세요.
+    year: "2023",
+    title: "제 1회 소통영화제 롱톡 (Long-Talk)",
+    page: "/long-talk",
+    description: "홍대 KT&G 상상마당에서 열린 제 1회 롱톡은 사회의 다원성을 담론하는 소통 영화제입니다. 디자인팀장을 맡아 영화제 BI 디자인과 홍보 콘텐츠 디자인을 진행했습니다.",
+    location: "BX/BI"
+  },
+  {
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762535334/overlock1_dgz3ex.svg", // 실제 URL로 변경하세요.
+    year: "2024",
+    title: "오버로크 (Overlock)",
+    page: "/overlock",
+    description: "Overlock는 이음새를 뜻하는 단어로, 옛것의 아름다움을 잇는 수선 복합문화공간 브랜드입니다. BI/BX 및 브랜드 콘텐츠 디자인을 담당했습니다.",
+    location: "BX/BI"
+  },
+  {
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762527533/prova0_ftiknv.png", // 실제 URL로 변경하세요.
+    year: "2025",
+    title: "프로바 (Prova)",
+    page: "/prova",
+    description: "Prova는 영화 및 영상 제작에서 필요한 하나의 솔루션을 제공하는 브랜드입니다. 브랜드 기획부터 아이덴티티의 시각 시스템을 개발했습니다.",
+    location: "BX/BI"
+  },
+  {
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763516060/image_146_bcve5d.svg", // 실제 URL로 변경하세요.
+    year: "2025",
+    title: "루미 (Lumi)",
+    page: "/lumi",
+    description: "Lumi는 일상 속 상호작용을 기록하며 인식할 수 있도록 돕는 슬로우 소셜 어플입니다. 서비스 기획부터 리서치, BI 및 UI 디자인을 설계했습니다.",
+    location: "UX/UI"
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-3 border-b py-8 border-base-200">
+
+      <div class="lg:sticky lg:top-24 lg:z-40 self-start">
+        <Text tag="h2" variant="textSM" class="text-base-900 font-bold uppercase">
+          Professional Projects
+        </Text>
+      </div>
+
+      <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8">
+        {data.map((project) => (
+          <article class="relative grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start">
+
+            <a href={project.page} class="lg:col-span-full">
+              {/* 👇 3. Image 컴포넌트를 표준 <img> 태그로 변경 👇 */}
+              <img
+                src={project.image}
+                alt={project.title}
+                width="800"
+                height="600"
+                loading="lazy"
+                decoding="async"
+                class="aspect-12/7 object-cover object-top w-full rounded-md"
+              />
+              {/* 👆 Image 컴포넌트 대신 <img> 태그 사용 👆 */}
+            </a>
+
+            <div class="lg:col-span-2">
+              <Text tag="h3" variant="textSM" class="text-base-900 font-bold uppercase">
+                <a href={project.page}>
+                  <span class="absolute -inset-x-4 -inset-y-6 z-0 sm:-inset-x-6 sm:rounded-2xl" />
+                  <span class="relative z-10 mt-0">{project.title}</span>
+                </a>
+              </Text>
+
+              <Text tag="p" variant="textXS" class="relative z-10 text-base-600 mt-2 leading-[1.7]">
+                {project.description}
+              </Text>
+
+              {/* Location 추가 */}
+                <Text
+                tag="p"
+                variant="textXS"
+                class="relative z-10 mt-5 text-sm text-base-500"
+                >
+                <span class="ml-0 w-2 h-2 bg-base-900 rounded-full inline-block"></span>
+                {project.location}
+                </Text>
+
+              <a href={project.page} class="relative z-10 inline-flex items-center mt-3 text-base-800 hover:text-base-900 transition-colors">
+              </a>
+
+            </div>
+
+            <Text tag="p" variant="textXS" class="relative z-10 flex items-center text-sm text-base-600 lg:ml-auto">
+              <time datetime={project.year}>{project.year}</time>
+            </Text>
+
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </Wrapper>
+</section>

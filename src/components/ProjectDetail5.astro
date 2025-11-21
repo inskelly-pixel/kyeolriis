@@ -1,0 +1,261 @@
+---
+import { Image } from "astro:assets";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// Props 정의
+interface Props {
+  mainImage: string;
+  imageAlt: string;
+  projectTitle: string;
+  currentPage: number;
+  totalPages: number;
+  category: string;
+  services: string[];
+  year: string;
+  fullDescription: string;
+}
+
+const {
+  mainImage,
+  imageAlt,
+  projectTitle,
+  currentPage,
+  totalPages,
+  category,
+  services,
+  year,
+  fullDescription,
+} = Astro.props;
+
+// 👇 1. 이미지 데이터 정의 (총 7개 항목)
+const contentSections = [
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762527543/prova1_f3xipb.svg",
+        imageAlt: "프로젝트 시각 컨셉 이미지",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762528692/prova2_jmgzfk.svg",
+        imageAlt: "브랜딩 요소 상세 이미지",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762528944/prova3_rpjpeg.png",
+        imageAlt: "추가 컨셉 이미지",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762529063/prova4_tjnuoq.svg",
+        imageAlt: "추가 이미지 섹션",
+    },
+     {
+        // ⭐ 다섯 번째 이미지 항목입니다. (텍스트 5번째 항목과 매칭되는 이미지)
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762529068/prova5_qtuunk.svg",
+        imageAlt: "추가 이미지 섹션 5",
+    },
+      {
+        // ⭐ 여섯 번째 이미지 항목입니다. (텍스트는 없음)
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762529076/prova6_ce1hk9.svg",
+        imageAlt: "추가 이미지 섹션 6",
+    },
+    {
+        // ⭐ 일곱 번째 이미지 항목입니다. (텍스트는 없음)
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762529085/prova7_denwfk.svg",
+        imageAlt: "추가 이미지 섹션 7",
+    },
+];
+
+// 👇 2. 텍스트 데이터 정의 (총 5개 항목)
+const textSets = [
+    {
+        keyword: "",
+        description: "",
+        position: "top: 0%; left: 5% ", 
+        textColor: "text-base-600",
+    },
+    {
+        keyword: "PROVA BI", 
+        description: "촬영 현장을 도와주는 브랜드의 기능을 담아 어플리케이션에 응용될 수 있는 로고 바리에이션과 키 그래픽을 디자인하였습니다. 카메라의 화면 중심을 잡는 초점 기호에서 모티프를 얻어 브랜드의 '효율 / 큐레이션 / 협력 / 지속성 / 접근성' 이라는 5가지 핵심 가치를 전달합니다.",
+        position: "top: 12%; left: 0%;", 
+        textColor: "text-base-600",
+    },
+    {
+        keyword: "",
+        description: "",
+        position: "top: 0%; left: 5%;", 
+        textColor: "text-white",
+    },
+    {
+        keyword: "PROVA WEBSITE & CREW",
+        description: "촬영 장비 및 소품 등 촬영에 필요한 물품을 대여하고 운송 서비스를 예약할 수 있는 웹사이트와 홍보 콘텐츠를 디자인하였습니다. 촬영 장비 대여 현황이나 재고를 살펴볼 수 있도록 정보를 제공하고, 장비 종류 및 기능에 대한 상세한 설명을 제공하여 처음 접하는 사람들에게도 어려움 없이 대여할 수 있도록 합니다.", 
+        position: "top: 2%; left: 1%;",
+        textColor: "text-white", 
+    },
+    {
+        keyword: "",
+        description: "",
+        position: "top: 49%; left: 5%;", 
+        textColor: "text-base-600", 
+    },
+     {
+        keyword: "",
+        description: "",
+        position: "top: 49%; left: 5%;", 
+        textColor: "text-base-600", 
+    },
+     {
+        keyword: "PROVA APPLICATION",
+        description: "유동적인 촬영 현장에 필요한 어플리케이션을 디자인하였습니다. 키그래픽을 활용하여 브랜드의 아이덴티티를 전달할 수 있는 촬영 크루나 장비 홍보 콘텐츠를 제작하여 브랜드의 확장된 시스템을 경험할 수 있도록 컨셉을 설계하였습니다. 구체적인 브랜드 제품으로는 촬영 장비와 카드, 운송 트럭, SNS 콘텐츠를 기반하여 브랜드의 어플리케이션 시스템을 디자인하였습니다. 브랜드의 키 그래픽을 다양한 스케일에 적용하여 유연하고 확장된 브랜드 컨셉을 전달하고자 했습니다.",
+        position: "top: 3%; left: 1%;", 
+        textColor: "text-base-600", 
+    },
+];
+
+// 헬퍼 함수: 텍스트가 비어 있는지 확인
+// ⭐ 텍스트 배열 길이 체크를 추가하여 안전성 강화
+const hasDescription = (index: number) => 
+    index < textSets.length && 
+    textSets[index] && 
+    textSets[index].description && 
+    textSets[index].description.length > 0;
+
+// 헬퍼 함수: 각 섹션에 대해 2열 그리드가 필요한지 확인
+const needsGrid = (index: number) => hasDescription(index) && textSets[index].keyword && textSets[index].description;
+---
+
+<section class="min-h-screen font-sans relative">
+  
+  <Wrapper variant="standard" class="relative z-10 py-8 lg:py-16">
+      {/* 메인 페이지로 돌아가는 타이포그래피 링크와 상단 맥락 (Professional Projects) */}
+    <div class="mb-2 px-2 flex justify-between items-end"> 
+
+      {/* 2. 오른쪽: 프로젝트 종류 (작게, 회색) */}
+      <Text tag="p" class="text-base-500 uppercase font-medium text-3xl">
+        Professional Projects
+      </Text>
+      
+      {/* 1. 왼쪽: 메인 페이지 링크 (크게) */}
+      <a href="/" class="text-base-900 font-medium text-3xl hover:opacity-30 transition-opacity">
+        Back
+      </a>
+      
+    </div>
+    
+    {/* 메인 콘텐츠 영역 (기존 내용) */}
+    <div class="lg:p-1 rounded-lg text-base-900">
+      
+      {/* 메인 프로젝트 이미지 */}
+      <div class="mb-6 lg:mb-6">
+        <img
+          src={"https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762527533/prova0_ftiknv.png"}
+          alt={imageAlt}
+          width={1200}
+          height={800}
+          class="w-full aspect-video object-cover rounded-md"
+          loading="lazy"
+        />
+      </div>
+
+      {/* 페이지 번호 */}
+      <Text tag="p" variant="textSM" class="text-base-500 mb-2">
+        ({currentPage}/{totalPages})
+      </Text>
+
+      {/* 제목 및 상세 정보 그리드 (여기가 2열 그리드 시작점) */}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+        
+        {/* 1열: 프로젝트 제목 */}
+        <div>
+          <Text tag="h1" variant="text5XL" class="text-5xl font-bold leading-tight mt-0">
+            {projectTitle}
+          </Text>
+        </div>
+
+        {/* 2열: Project Details 및 상세 설명 (상단 상세 설명이 시작되는 곳) */}
+        <div class="flex flex-col gap-8">
+          
+          {/* Project Details 테이블 */}
+          <div class="">
+            <div class="grid grid-cols-3 gap-y-0 text-sm">
+              <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">{category}</Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                  {services.map(service => (<span class="block">{service}</span>))}
+                </Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+              <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+              <Text tag="p" variant="textSM" class="col-span-2 pt-1">{year}</Text>
+              </div>
+            </div>
+          </div>
+
+          {/* 상세 설명 텍스트 (하드코딩된 내용) */}
+          <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8">Prova는 production(영화 및 영상 제작)과 nova(새로움)을 결합한 이름으로, 영화 및 영상 제작에서 필요한 하나의 솔루션을 제공하는 브랜드입니다. 직접 영화 촬영장에서 일을 해보며 고객들의 페인 포인트를 파악하고 분산된 시스템이 아닌 통합형 솔루션으로 촬영 크루와 장비, 소품, 로이케이션까지 현장의 모든 에셋을 제공합니다. 브랜드 기획부터 시각 시스템을 개발하였습니다.</Text>
+            {/* fullDescription Prop 텍스트 (이전 요청에서 수정된 대로 분리) */}
+            <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+             {fullDescription}
+            </Text>
+        </div>
+        {/* 👆 상단 콘텐츠의 2열 끝 👆 */}
+
+      </div> {/* 제목 및 상세 정보 그리드 끝 */}
+      
+    </div> {/* 메인 콘텐츠 영역 끝 */}
+
+    
+    {/* --- 새로운 이미지/텍스트 섹션 (lumi 스타일의 2열 그리드 오버레이 적용) --- */}
+    <div class="grid grid-cols-1 gap-8 pt-10 mt-24"> 
+        {contentSections.map((section, index) => (
+            
+            // ⭐ 부모 div에 relative를 적용하여 내부 absolute 요소의 기준점이 됩니다.
+            <div class={`mb-8 relative`}>
+                
+                {/* 이미지 */}
+                <img
+                    src={section.imageUrl}
+                    alt={section.imageAlt}
+                    width={1000}
+                    height={800}
+                    class="w-full object-cover rounded-lg"
+                    loading="lazy"
+                />
+
+                {/* 텍스트 오버레이 (description이 있는 경우에만 표시) */}
+                {hasDescription(index) ? (
+                    
+                    /* ⭐ 텍스트 컨테이너: absolute와 인라인 스타일로 위치 지정 */
+                    // ⭐ 여기에 2열 그리드를 적용합니다.
+                    <div 
+                      class={`absolute p-6 lg:p-10 text-left grid grid-cols-1 md:grid-cols-2 gap-4`} 
+                      style={textSets[index].position}
+                    >
+                        
+                        {/* 1열: 키워드 */}
+                        <div class="col-span-1">
+                            <Text tag="p" variant="textMD" class={`${textSets[index].textColor} uppercase font-semibold mb-0`}> 
+                                {textSets[index].keyword}
+                            </Text>
+                        </div>
+
+                        {/* 2열: 설명 */}
+                        <div class="col-span-1">
+                            {/* w-[500px] 대신 w-full을 사용하여 그리드 열 너비에 맞춰지도록 합니다. */}
+                            <Text tag="p" variant="textMD" class={`${textSets[index].textColor} leading-relaxed w-full`}> 
+                                {textSets[index].description}
+                            </Text>
+                        </div>
+                    </div>
+                ) : null}
+                
+            </div>
+        ))}
+    </div>
+    {/* --- 새로운 이미지/텍스트 섹션 끝 --- */}
+  
+  </Wrapper> {/* Wrapper 종료 */}
+
+</section>

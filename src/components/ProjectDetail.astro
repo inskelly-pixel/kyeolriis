@@ -1,0 +1,224 @@
+---
+import { Image } from "astro:assets"; // 이 임포트는 더 이상 사용되지 않지만, 혹시 몰라 유지했습니다.
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// BaseLayout 임포트 및 사용을 제거했습니다.
+
+// Props 정의
+interface Props {
+  mainImage: string; // 타입을 string (URL)으로 변경
+  imageAlt: string;
+  projectTitle: string;
+  currentPage: number;
+  totalPages: number;
+  category: string;
+  services: string[]; // 여러 서비스가 있을 수 있으므로 배열로
+  year: string;
+  fullDescription: string;
+}
+
+const {
+  mainImage,
+  imageAlt,
+  projectTitle,
+  currentPage,
+  totalPages,
+  category,
+  services,
+  year,
+  fullDescription,
+} = Astro.props;
+
+// 👇 새로운 섹션을 위한 데이터 정의
+const contentSections = [
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763002719/Binzip3_celr93.svg", // 1열: 오른쪽 오버레이
+        imageAlt: "프로젝트 시각 컨셉 이미지",
+        keyword: "VISUAL CONCEPT",
+        description: "포스터 디자인은 영화의 고독하고 환상적인 분위기를 극대화하기 위해 차가운 톤과 대비되는 소재를 중심으로 컨셉을 잡았습니다. 섬세한 텍스처와 미니멀한 구성이 특징입니다.",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763519446/binzip2_lvs1az.png", // 2열: 이미지 전체 채우기
+        imageAlt: "브랜딩 요소 상세 이미지",
+        keyword: "FULL IMAGE", 
+        description: "",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763002857/Binzip_n8ubvt.png", // 3열: 왼쪽 오버레이
+        imageAlt: "추가 컨셉 이미지",
+        keyword: "ADDITIONAL ELEMENTS",
+        description: "추가적인 굿즈와 홍보 자료는 텀블벅 후원 전략에 맞춰 제작되었으며, 시각적 일관성을 유지하면서도 후원자들에게 특별함을 제공하는 데 초점을 맞췄습니다.",
+    },
+        {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763004499/Binzip5_zboxom.png", // 4열: 이미지 전체 채우기
+        imageAlt: "추가 이미지 섹션",
+        keyword: "FOURTH IMAGE",
+        description: "",
+    },
+];
+---
+
+<section class="min-h-screen bg-base-100 text-base-100 font-sans relative">
+  
+  <Wrapper variant="standard" class="relative z-10 py-8 lg:py-16">
+
+    {/* 메인 페이지로 돌아가는 타이포그래피 링크와 상단 맥락 (Professional Projects) */}
+    <div class="mb-2 px-2 flex justify-between items-end">
+
+      {/* 2. 오른쪽: 프로젝트 종류 (작게, 회색) */}
+      <Text tag="p" class="text-base-500 text-3xl uppercase font-medium">
+        Professional Projects
+      </Text>
+      
+      {/* 1. 왼쪽: 메인 페이지 링크 (크게) */}
+      <a href="/" class="text-base-900 font-medium text-3xl hover:opacity-30 transition-opacity">
+        Back
+      </a>
+      
+    </div>
+    
+    {/* 메인 콘텐츠 영역 (기존 내용) */}
+    <div class="bg-base-100 lg:p-1 rounded-lg text-base-900">
+      
+      {/* 메인 프로젝트 이미지 */}
+      <div class="mb-6 lg:mb-6">
+        <img
+          src={"https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763002561/Binzip_w6jf3z.svg"}
+          alt={imageAlt}
+          width={1200}
+          height={800}
+          class="w-full aspect-video object-cover rounded-md"
+          loading="lazy"
+        />
+      </div>
+
+      {/* 페이지 번호 */}
+      <Text tag="p" variant="textSM" class="text-base-500 mb-2">
+        ({currentPage}/{totalPages})
+      </Text>
+
+      {/* 제목 및 상세 정보 그리드 (여기가 2열 그리드 시작점) */}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+        
+        {/* 1열: 프로젝트 제목 */}
+        <div>
+          <Text tag="h1" variant="text5XL" class="text-5xl font-bold leading-tight mt-0">
+            {projectTitle}
+          </Text>
+        </div>
+
+        {/* 2열: Project Details 및 상세 설명 (상단 상세 설명이 시작되는 곳) */}
+        <div class="flex flex-col gap-8">
+          
+          {/* Project Details 테이블 (생략) */}
+          <div class="">
+            <div class="grid grid-cols-3 gap-y-0 text-sm">
+              <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-800 pb-3 mb-0">Project Details</Text>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-800 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">{category}</Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-800 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                  {services.map(service => (<span class="block">{service}</span>))}
+                </Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-800 pb-3 mb-0">
+              <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+              <Text tag="p" variant="textSM" class="col-span-2 pt-1">{year}</Text>
+              </div>
+            </div>
+          </div>
+
+          {/* 상세 설명 텍스트 (이 텍스트와 하단 섹션을 정렬하고 싶음) */}
+          <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8">단편 영화 "빈 집"에서 영화 디자인을 맡아 홍보 콘텐츠, 포스터, 굿즈를 디자인했습니다. 영화 특유의 고독하고 환상적인 분위기를 전달하기 위해 독특한 소재를 활용한 시각적 포스터 컨셉을 시도했습니다. 또한 텀블벅 후원 및 홍보 전략에 맞춘 콘텐츠 디자인을 진행하여 목표 대비 107%의 후원금을 달성하였고, 이후 서울 학여울 인근 영화관에서 상영 기회를 얻었습니다.</Text>
+            {fullDescription}
+          </Text>
+        </div>
+        {/* 👆 상단 콘텐츠의 2열 끝 👆 */}
+
+
+        {/* --- 새로운 이미지/텍스트 섹션 추가 (상단 그리드의 1열을 비우고 2열에서 시작) --- */}
+        <div class="col-span-1 hidden md:block">
+          {/* 1열은 비워둠 */}
+        </div>
+
+        {/* 2열 영역에서 시작하며 세부 컨텐츠를 출력 */}
+        <div class="col-span-full md:col-span-1 flex flex-col pt-10 mt-50"> 
+            {contentSections.map((section, index) => (
+                <>
+                    {/* 1열 (index 0) 및 3열 (index 2) : 이미지 위에 텍스트 오버레이 스타일 */}
+                    {index === 0 || index === 2 ? (
+                        <div class="relative mb-20">
+                            {/* 이미지: 2열 너비 전체를 채우고 높이를 확보 */}
+                            <img
+                                src={section.imageUrl}
+                                alt={section.imageAlt}
+                                width={1000}
+                                height={800}
+                                class="w-full object-cover rounded-lg"
+                                loading="lazy"
+                            />
+
+                            {/* 텍스트 오버레이 */}
+                            {/* 👇 1열 (index 0): 오른쪽 배치, 텍스트 왼쪽 정렬 스타일 */}
+                            {index === 0 ? (
+                                <div class="absolute inset-0 flex flex-col justify-end items-end p-6 lg:p-10 rounded-lg text-left">
+                                    <div class="max-w-lg"> {/* 텍스트 너비 제한 */}
+                                        {/* 키워드 */}
+                                        <Text tag="p" variant="textSM" class="text-white uppercase font-medium mb-1">
+                                            {section.keyword}
+                                        </Text>
+    
+                                        {/* 설명 */}
+                                        <Text tag="p" variant="textMD" class="text-white font-medium leading-relaxed">
+                                            {section.description}
+                                        </Text>
+                                    </div>
+                                </div>
+                            ) : null}
+
+                            {/* 👇 3열 (index 2): 왼쪽 정렬 스타일 */}
+                            {index === 2 ? (
+                                <div class="absolute inset-0 flex flex-col justify-start items-start p-6 lg:p-10 rounded-lg text-left">
+                                    <div class="max-w-lg"> {/* 텍스트 너비 제한 */}
+                                        {/* 키워드 */}
+                                        <Text tag="p" variant="textSM" class="text-white uppercase font-medium mb-1">
+                                            {section.keyword}
+                                        </Text>
+    
+                                        {/* 설명 */}
+                                        <Text tag="p" variant="textMD" class="text-white font-medium leading-relaxed">
+                                            {section.description}
+                                        </Text>
+                                    </div>
+                                </div>
+                            ) : null}
+                        </div>
+                    ) : null}
+
+                    {/* 2열 (index 1) 및 4열 (index 3): 이미지만 화면에 채우기 스타일 */}
+                    {/* 👇 이 블록만 남기고, 이전의 index === 1 블록을 제거했습니다. */}
+                    {index === 1 || index === 3 ? (
+                        <div class="mb-20">
+                            {/* 이미지: 2열 너비 전체를 채우고 높이를 확보 */}
+                            <img
+                                src={section.imageUrl}
+                                alt={section.imageAlt}
+                                width={1000}
+                                height={800}
+                                class="w-full object-cover rounded-lg"
+                                loading="lazy"
+                            />
+                        </div>
+                    ) : null}
+                </>
+            ))}
+        </div>
+        {/* --- 새로운 이미지/텍스트 섹션 끝 --- */}
+
+      </div> {/* 제목 및 상세 정보 그리드 끝 */}
+    </div>
+  </Wrapper>
+</section>

@@ -61,7 +61,7 @@ const {
 const baseClasses = textStyles[variant] || textStyles.textMD; // Fallback to textMD if variant not found
 
 // Combine base classes with any additional custom classes
-const combinedClasses = `${baseClasses} ${className}`.trim();
+const combinedClasses = `block ${baseClasses} ${className}`.trim();
 ---
 <Tag
   class={combinedClasses}

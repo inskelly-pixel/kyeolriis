@@ -3,96 +3,475 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-// Data array
-const pageData = [
+// Data array (Props를 사용하지 않으므로 사용하지 않습니다.)
+/* const pageData = [
   {
     categoryTitle: "Static",
     links: [
-      {
-        sectionTitle: "Landing Pages",
-        links: [
-          {
-            title: "Home",
-            url: "/",
-          },
-          { title: "404", url: "/404" },
-        ],
-      },
-      {
-        sectionTitle: "System Pages",
-        links: [
-          { title: "Links", url: "/system/links" },
-          { title: "Buttons", url: "/system/buttons" },
-          { title: "Colors", url: "/system/colors" },
-          { title: "Typography", url: "/system/typography" },
-          {
-            title: "License",
-            url: "https://lexingtonthemes.com/legal/license",
-          },
-          {
-            title: "Docs",
-            url: "https://lexingtonthemes.com/documentation",
-          },
-        ],
-      },
+      // ... (생략)
     ],
   },
 ];
+*/
+
+// ⭐ Props 사용을 중단하므로 데이터 추출 및 정의도 삭제합니다. ⭐
+// const projectData = { ... };
+// const { ... } = projectData; 
 ---
 
 <BaseLayout>
   <section>
     <Wrapper variant="standard">
+      
+      {/* ⭐ 요청하신 상단 내비게이션 및 맥락 추가 시작 ⭐ */}
+      <div class="mb-2 flex justify-between items-end pt-10"> 
+
+        {/* 1. 오른쪽: 프로젝트 종류 (작게, 회색) */}
+        <Text tag="p" class="text-base-500 uppercase font-medium text-3xl">
+          Projects Overview
+        </Text>
+
+         {/* 2. 왼쪽: 메인 페이지 링크 (크게) */}
+        <a href="/" class="text-base-900 font-medium text-3xl hover:opacity-30 transition-opacity">
+          Back
+        </a>
+        
+      </div>
+      {/* ⭐ 요청하신 상단 내비게이션 및 맥락 추가 끝 ⭐ */}
+
+      {/* 1. Overview 제목 및 설명 영역 (기존 코드) */}
       <div
-        class="grid grid-cols-1 gap-4 md:grid-cols-3 border-b pb-8 pt-24 border-base-200"
+        class="grid grid-cols-1 gap-4 md:grid-cols-3 border-b pb-8 pt-4 border-base-200"
       >
         <Text tag="h1" variant="textSM" class="font-medium text-base-900"
-          >Overview</Text
+          ></Text
         >
-        <Text tag="p" variant="textSM" class="text-base-600 lg:col-span-2">
-          All pages
+        <Text tag="p" variant="textSM" class="text-base-600 lg:col-span-2"></Text>
         </Text>
       </div>
-      <div class="">
-        {
-          pageData.map((category) => (
-            <>
-              <div class="grid grid-cols-1 gap-4 md:grid-cols-3 border-b py-8  border-base-200  ">
-                <Text
-                  tag="h3"
-                  variant="textSM"
-                  class="font-medium text-base-900  "
-                >
-                  {category.categoryTitle}
+
+      {/* 2. 상세 설명 레이아웃 삽입 시작 (하드코딩) */}
+      <div class="py-8">
+        
+        {/* 첫 번째 상세 설명 블록 */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (1/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0">
+                    빈집 (The Ant)
                 </Text>
-                <div class=" gap-y-8 gap-x-4 grid grid-cols-2 md:grid-cols-3 lg:col-span-2">
-                  {category.links.map((section) => (
-                    <div>
-                      <Text
-                        tag="h4"
-                        variant="textSM"
-                        class="font-medium text-base-900  "
-                      >
-                        {section.sectionTitle}
-                      </Text>
-                      <div class="flex flex-col mt-1 text-xs gap-1">
-                        {section.links.map((link) => (
-                          <a
-                            class="text-base-600   hover:text-base-900 text-xs"
-                            href={link.url}
-                          >
-                            {link.title}
-                          </a>
-                        ))}
-                      </div>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763002561/Binzip_w6jf3z.svg" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">Flim Design</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">홍보 콘텐츠 기획 및 디자인</span>
+                                <span class="block">포스터 디자인</span>
+                                <span class="block">굿즈 디자인</span>
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2024</Text>
+                        </div>
                     </div>
-                  ))}
                 </div>
-              </div>
-            </>
-          ))
-        }
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+        
+        {/* 두 번째 상세 설명 블록 (복사된 내용이므로 동일한 이미지 적용) */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (2/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0">
+                    껌벅 (The Flicker)
+                </Text>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763289146/flicker1_khedwh.png" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">Flim Design</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">타이틀 디자인</span>
+                                <span class="block">포스터 디자인</span>
+                                <span class="block">미술 및 무대 디자인</span>
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2025</Text>
+                        </div>
+                    </div>
+                </div>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+        
+        {/* 세 번째 상세 설명 블록 (복사된 내용이므로 동일한 이미지 적용) */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (3/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0 w-[400px]">
+                    제1회 소통영화제 롱톡(Long-Talk Flim Festival)
+                </Text>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762534542/longtalk1_tppgtc.png" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">Flim Festival BI/BX</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">홍보 콘텐츠 기획 및 디자인</span>
+                                <span class="block">모션그래픽</span>
+                                <span class="block">편집 디자인</span>
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2025</Text>
+                        </div>
+                    </div>
+                </div>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+        
+        {/* 네 번째 상세 설명 블록 (복사된 내용이므로 동일한 이미지 적용) */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (4/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0">
+                    오버로크 (OVERLOCK)
+                </Text>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762535334/overlock1_dgz3ex.svg" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">Sewing & Cultural Complex Brand BI/BX</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">기획 및 리서치</span>
+                                <span class="block">BX/BI</span>
+                                <span class="block">어플리케이션 디자인</span>
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2024</Text>
+                        </div>
+                    </div>
+                </div>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+
+        {/* 다섯 번째 상세 설명 블록 (복사된 내용이므로 동일한 이미지 적용) */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (5/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0">
+                    프로바 (Prova)
+                </Text>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762527533/prova0_ftiknv.png" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">Production Brand BI/BX</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">기획</span>
+                                <span class="block">BI/BX</span>
+                                <span class="block">콘텐츠 디자인</span>
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2025</Text>
+                        </div>
+                    </div>
+                </div>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+        {/* 제목 및 상세 정보 그리드 끝 */}
+
+        {/* 여섯 번째 상세 설명 블록 (복사된 내용이므로 동일한 이미지 적용) */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (6/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0">
+                    루미 (Lumi)
+                </Text>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763516060/image_146_bcve5d.svg" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">UX/UI Design</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">Service Planning</span>
+                                <span class="block">BI Design</span>
+                                <span class="block">UI Design</span>
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2025</Text>
+                        </div>
+                    </div>
+                </div>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+
+        {/* 일곱 번째 상세 설명 블록 (복사된 내용이므로 동일한 이미지 적용) */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (7/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0">
+                    타입이모지 (Typemoji)
+                </Text>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763654237/typemoji_1_1_a3gvlj.svg" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">Graphic Design</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">콘텐츠 기획 및 디자인</span>
+                                <span class="block">어플리케이션 디자인</span>
+                          
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2025</Text>
+                        </div>
+                    </div>
+                </div>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+
+        {/* 여덟 번째 상세 설명 블록 (복사된 내용이므로 동일한 이미지 적용) */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (8/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0">
+                    아름다움에 대하여 (About Beauty)
+                </Text>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763699603/aboutbeauty2_orzlir.png" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">Graphic Design</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">기획</span>
+                                <span class="block">편집</span>
+                                <span class="block">그래픽</span>
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2024</Text>
+                        </div>
+                    </div>
+                </div>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+        {/* 제목 및 상세 정보 그리드 끝 */}
+
+        {/* 아홉 번째 상세 설명 블록 (복사된 내용이므로 동일한 이미지 적용) */}
+        <Text tag="p" variant="textSM" class="text-base-500 mb-2 mt-15">
+            (9/9)
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+            <div>
+                <Text tag="h1" variant="text2XL" class="text-2xl font-bold leading-tight mt-0">
+                    700-08
+                </Text>
+                {/* ⭐ 작은 사진 추가 ⭐ */}
+                <img 
+                    src="https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763703359/700-08_1_kl0c6x.png" 
+                    alt="Lumi Project Thumbnail" 
+                    class="mt-4 w-70 h-auto object-cover rounded-md shadow-sm"
+                    width="192" height="120"
+                />
+            </div>
+            <div class="flex flex-col gap-8">
+                <div class="">
+                    <div class="grid grid-cols-3 gap-y-0 text-sm">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">Editorial Design</Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                            <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                            <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                                <span class="block">기획</span>
+                                <span class="block">편집</span>
+                                <span class="block">그래픽</span>
+                            </Text>
+                        </div>
+                        <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                        <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+                        <Text tag="p" variant="textSM" class="col-span-2 pt-1">2024</Text>
+                        </div>
+                    </div>
+                </div>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8"></Text>
+                <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+                    {/* 추가 설명이 필요하면 여기에 입력하세요. */}
+                </Text>
+            </div>
+        </div> 
+        {/* 제목 및 상세 정보 그리드 끝 */}
       </div>
+      {/* 2. 상세 설명 레이아웃 삽입 끝 */}
+      
     </Wrapper>
   </section>
 </BaseLayout>

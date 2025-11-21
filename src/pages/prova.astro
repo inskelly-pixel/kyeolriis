@@ -1,0 +1,37 @@
+---
+// 상세 페이지에 사용할 기본 레이아웃 등을 임포트합니다.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectDetail5 from "@/components/ProjectDetail5.astro";
+// 🚨 1. 프로젝트 메인 이미지 파일을 임포트해야 합니다. 🚨
+import antMainImage from "@/images/projects/4.png"; 
+
+// 현재 프로젝트의 모든 상세 데이터를 정의합니다.
+const projectData = {
+    // 🚨 2. ProjectDetail의 mainImage prop을 채우기 위해 임포트한 이미지를 넣습니다. 🚨
+    mainImage: antMainImage,
+    
+    // 🚨 3. imageAlt prop을 채웁니다. 🚨
+    imageAlt: "빈집 (The Ant) 영화 포스터 이미지",
+    
+    // title은 projectTitle prop을 대신합니다.
+    projectTitle: "프로바 (PROVA)", 
+    
+    // 🚨 4. category prop을 채웁니다. 🚨
+    category: "Production Brand BI/BX",
+    
+    // 🚨 5. services prop을 채웁니다. 🚨
+    services: ["기획", "BI/BX", "콘텐츠 디자인"],
+    
+    year: "2025", // OK
+    
+    // 🚨 6. currentPage와 totalPages prop을 채웁니다. (페이지 번호) 🚨
+    currentPage: 5, 
+    totalPages: 6,
+    
+    fullDescription: "",
+};
+---
+
+<BaseLayout>
+  <ProjectDetail5 {...projectData} /> 
+</BaseLayout>

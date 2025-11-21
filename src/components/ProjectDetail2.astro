@@ -1,0 +1,231 @@
+---
+import { Image } from "astro:assets"; // 이 임포트는 더 이상 사용되지 않지만, 혹시 몰라 유지했습니다.
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// BaseLayout 임포트 및 사용을 제거했습니다.
+
+// Props 정의
+interface Props {
+  mainImage: string; // 타입을 string (URL)으로 변경
+  imageAlt: string;
+  projectTitle: string;
+  currentPage: number;
+  totalPages: number;
+  category: string;
+  services: string[]; // 여러 서비스가 있을 수 있으므로 배열로
+  award: string[];
+  year: string;
+  fullDescription: string;
+}
+
+const {
+  mainImage,
+  imageAlt,
+  projectTitle,
+  currentPage,
+  totalPages,
+  category,
+  services,
+  award,
+  year,
+  fullDescription,
+} = Astro.props;
+
+// 👇 새로운 섹션을 위한 데이터 정의
+const contentSections = [
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763289157/flicker2_xv1jtf.png", // 1열: 오른쪽 오버레이
+        imageAlt: "프로젝트 시각 컨셉 이미지",
+        keyword: "VISUAL CONCEPT",
+        description: "영화의 서사에서 핵심 상징 요소로 등장하는 ‘탈리 라이트’를 주요 시각 컨셉으로 두어, 긴장감과 위태로움을 강조하는 붉은 톤의 방향성을 설정했습니다. 또한 빛의 불안정한 상태를 표현하기 위해 날카롭고 끊기는 듯한 획을 적용해 타이틀을 디자인했습니다.",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763019087/flicker3_n6ehn2.svg", // 2열: 이미지 전체 채우기
+        imageAlt: "브랜딩 요소 상세 이미지",
+        keyword: "FULL IMAGE", 
+        description: "",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763119707/theflicker4_mx1q9c.svg", // 3열: 왼쪽 오버레이
+        imageAlt: "추가 컨셉 이미지",
+        keyword: "SET DESIGN",
+        description: "미술팀에서는 현장에서 필요한 세트와 소품을 직접 다루며, 연출적 관점에서 요구되는 시각적 콘셉트를 설계했습니다. 실제 공간을 기반으로 균형과 대비를 조율하는 과정을 통해 공간 연출과 시각적 디렉션에 대한 실질적인 역량을 쌓았고, 작은 시각적 요소도 장면 전체에서 입체적으로 중요한 역할을 한다는 점을 깨달았습니다.",
+    },
+        {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763119834/theflicker6_hpuiji.svg", // 4열: 이미지 전체 채우기
+        imageAlt: "추가 이미지 섹션",
+        keyword: "FOURTH IMAGE",
+        description: "",
+    },
+];
+---
+
+<section class="min-h-screen text-base-100 font-sans relative">
+  
+  <Wrapper variant="standard" class="relative z-10 py-8 lg:py-16">
+      {/* 메인 페이지로 돌아가는 타이포그래피 링크와 상단 맥락 (Professional Projects) */}
+    <div class="mb-2 px-2 flex justify-between items-end">
+
+      {/* 2. 오른쪽: 프로젝트 종류 (작게, 회색) */}
+      <Text tag="p" class="text-base-500 text-3xl uppercase font-medium">
+        Professional Projects
+      </Text>
+      
+      {/* 1. 왼쪽: 메인 페이지 링크 (크게) */}
+      <a href="/" class="text-base-900 font-medium text-3xl hover:opacity-30 transition-opacity">
+        Back
+      </a>
+      
+    </div>
+
+    {/* 메인 콘텐츠 영역 (기존 내용) */}
+    <div class=" lg:p-1 rounded-lg text-base-900">
+      
+      {/* 메인 프로젝트 이미지 */}
+      <div class="mb-6 lg:mb-6">
+        <img
+          src={"https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763289146/flicker1_khedwh.png"}
+          alt={imageAlt}
+          width={1200}
+          height={800}
+          class="w-full aspect-video object-cover rounded-md"
+          loading="lazy"
+        />
+      </div>
+
+      {/* 페이지 번호 */}
+      <Text tag="p" variant="textSM" class="text-base-500 mb-2">
+        ({currentPage}/{totalPages})
+      </Text>
+
+      {/* 제목 및 상세 정보 그리드 (여기가 2열 그리드 시작점) */}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+        
+        {/* 1열: 프로젝트 제목 */}
+        <div>
+          <Text tag="h1" variant="text5XL" class="text-5xl font-bold leading-tight mt-0">
+            {projectTitle}
+          </Text>
+        </div>
+
+        {/* 2열: Project Details 및 상세 설명 (상단 상세 설명이 시작되는 곳) */}
+        <div class="flex flex-col gap-8">
+          
+          {/* Project Details 테이블 (생략) */}
+          <div class="">
+            <div class="grid grid-cols-3 gap-y-0 text-sm">
+              <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-800 pb-3 mb-0">Project Details</Text>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-800 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">{category}</Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-800 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                  {services.map(service => (<span class="block">{service}</span>))}
+                </Text>
+              </div>
+               <div class="col-span-full grid grid-cols-3 border-b border-base-800 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Film Screening</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                  {award.map(award => (<span class="block">{award}</span>))}
+                </Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-800 pb-3 mb-0">
+              <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+              <Text tag="p" variant="textSM" class="col-span-2 pt-1">{year}</Text>
+              </div>
+            </div>
+          </div>
+
+          {/* 상세 설명 텍스트 (이 텍스트와 하단 섹션을 정렬하고 싶음) */}
+          <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8">단편영화 "껌벅(The Flicker)"에서 포스터와 타이틀 디자인을 맡고, 미술팀으로 참여해 영화의 세트 디자인을 진행했습니다. 이 과정에서 연출팀과 함께 영화의 전체적인 시각적 컨셉과 방향성을 조율하고 기획하였습니다. 사회적 문제의식을 다룬 영화의 서사와 핵심 콘셉트를 시각적으로 날카롭게 해석하여 작품의 강렬한 분위기를 전달하고자 했습니다.</Text>
+            {fullDescription}
+          </Text>
+        </div>
+        {/* 👆 상단 콘텐츠의 2열 끝 👆 */}
+
+
+        {/* --- 새로운 이미지/텍스트 섹션 추가 (상단 그리드의 1열을 비우고 2열에서 시작) --- */}
+        <div class="col-span-1 hidden md:block">
+          {/* 1열은 비워둠 */}
+        </div>
+
+        {/* 2열 영역에서 시작하며 세부 컨텐츠를 출력 */}
+        <div class="col-span-full md:col-span-1 flex flex-col pt-10 mt-50"> 
+            {contentSections.map((section, index) => (
+                <>
+                    {/* 1열 (index 0) 및 3열 (index 2) : 이미지 위에 텍스트 오버레이 스타일 */}
+                    {index === 0 || index === 2 ? (
+                        <div class="relative mb-20">
+                            {/* 이미지: 2열 너비 전체를 채우고 높이를 확보 */}
+                            <img
+                                src={section.imageUrl}
+                                alt={section.imageAlt}
+                                width={1000}
+                                height={800}
+                                class="w-full object-cover rounded-lg"
+                                loading="lazy"
+                            />
+
+                            {/* 텍스트 오버레이 */}
+                            {/* 👇 1열 (index 0): 오른쪽 배치, 텍스트 왼쪽 정렬 스타일 */}
+                            {index === 0 ? (
+                                <div class="absolute inset-0 flex flex-col justify-start items-start p-6 lg:p-10 rounded-lg text-left">
+                                    <div class="max-w-xl"> {/* 텍스트 너비 제한 */}
+                                        {/* 키워드 */}
+                                        <Text tag="p" variant="textSM" class="text-white uppercase font-medium mb-3">
+                                            {section.keyword}
+                                        </Text>
+    
+                                        {/* 설명 */}
+                                        <Text tag="p" variant="textMD" class="text-white font-normal leading-relaxed">
+                                            {section.description}
+                                        </Text>
+                                    </div>
+                                </div>
+                            ) : null}
+
+                            {/* 👇 3열 (index 2): 왼쪽 정렬 스타일 */}
+                            {index === 2 ? (
+                                <div class="absolute inset-0 flex flex-col justify-start items-start p-6 lg:p-10 rounded-lg text-left">
+                                    <div class="max-w-xl"> {/* 텍스트 너비 제한 */}
+                                        {/* 키워드 */}
+                                        <Text tag="p" variant="textSM" class="text-white uppercase font-medium mb-3">
+                                            {section.keyword}
+                                        </Text>
+    
+                                        {/* 설명 */}
+                                        <Text tag="p" variant="textMD" class="text-white font-normal leading-relaxed">
+                                            {section.description}
+                                        </Text>
+                                    </div>
+                                </div>
+                            ) : null}
+                        </div>
+                    ) : null}
+
+                    {/* 2열 (index 1) 및 4열 (index 3): 이미지만 화면에 채우기 스타일 */}
+                    {/* 👇 이 블록만 남기고, 이전의 index === 1 블록을 제거했습니다. */}
+                    {index === 1 || index === 3 ? (
+                        <div class="mb-20">
+                            {/* 이미지: 2열 너비 전체를 채우고 높이를 확보 */}
+                            <img
+                                src={section.imageUrl}
+                                alt={section.imageAlt}
+                                width={1000}
+                                height={800}
+                                class="w-full object-cover rounded-lg"
+                                loading="lazy"
+                            />
+                        </div>
+                    ) : null}
+                </>
+            ))}
+        </div>
+        {/* --- 새로운 이미지/텍스트 섹션 끝 --- */}
+
+      </div> {/* 제목 및 상세 정보 그리드 끝 */}
+    </div>
+  </Wrapper>
+</section>

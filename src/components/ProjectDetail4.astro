@@ -1,0 +1,243 @@
+---
+import { Image } from "astro:assets";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// Props 정의
+interface Props {
+  mainImage: string;
+  imageAlt: string;
+  projectTitle: string;
+  currentPage: number;
+  totalPages: number;
+  category: string;
+  services: string[];
+  year: string;
+  award: string[];
+  fullDescription: string;
+}
+
+const {
+  mainImage,
+  imageAlt,
+  projectTitle,
+  currentPage,
+  totalPages,
+  category,
+  services,
+  year,
+  award,
+  fullDescription,
+} = Astro.props;
+
+// 👇 1. 이미지 데이터 정의 (총 5개 항목)
+const contentSections = [
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762535336/overlock2_dwqxd6.svg",
+        imageAlt: "프로젝트 시각 컨셉 이미지",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762535338/overlock3_sntu0c.svg",
+        imageAlt: "브랜딩 요소 상세 이미지",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762535341/overlock4_ec5ys0.svg",
+        imageAlt: "추가 컨셉 이미지",
+    },
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762535347/overlock5_fi13vh.svg",
+        imageAlt: "추가 이미지 섹션",
+    },
+     {
+        // ⭐ 다섯 번째 이미지 항목입니다.
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762535773/overlock0_c4g89k.png",
+        imageAlt: "추가 이미지 섹션 5",
+    },
+];
+
+// 👇 2. 텍스트 데이터 정의 (총 ⭐5개 항목⭐으로 수정)
+const textSets = [
+    {
+        keyword: "BACKGROUND",
+        description: "각 영화제 프로그램은 서로 다른 내용을 가지고 있지만 결국 사회를 연결하는 하나의 이야기를 하고 있다는 점에서 퍼즐을 모티브로 영화제 브랜딩 컨셉을 기획하였습니다. 유연하며 둥근 형태를 가진 퍼즐으로 발단, 위기, 절정, 결말 총 4가지 섹션에 맞는 4가지 종류의 심볼을 디자인하였습니다.",
+        position: "top: 13%; left: 5% ", 
+        textColor: "text-base-600",
+    },
+    {
+        keyword: "CREATIVE WORKSHOP", 
+        description: "크레이티브 워크샵은 지역 수선 전문가들과 함께 수선 기법에 대한 워크샵을 제공하는 공간입니다. 수선을 주제로 한 워크샵의 다양한 컨셉과 브랜드의 키 그래픽인 스티치 패턴을 담아 사이니지, 홍보 콘텐츠와 굿즈를 디자인하였습니다.",
+        position: "top: 44%; left: 5%;", 
+        textColor: "text-base-600",
+    },
+    {
+        keyword: "MERCH SHOP & CAFE",
+        description: "오버로크 머치샵에서는 오버로크 카페와 함께 다양한 수선 자재들을 살펴볼 수 있는 공간입니다. 브랜드의 키 그래픽을 활용하여 수선 자재와 관련된 굿즈와 카페 패키지를 디자인하여 공간을 홍보할 수 있는 어플리케이션을 제작하였습니다.",
+        position: "top: 66.5%; left: 5%;", 
+        textColor: "text-base-600",
+    },
+    {
+        keyword: "AWARD",
+        description: "해당 프로젝트는 이후 이화여대에서 <이 작품을 주목해라> 에서 우수 작품으로 선정되어 교내에서 전시를 하고, 장학금을 수여했습니다. 공간 디자인 동기와 깊은 협업과 노력으로 공간 브랜딩에서 뜻깊은 결과를 맺을 수 있었습니다.", 
+        position: "top: 90%; left: 5%;",
+        textColor: "text-base-600", // 흰색 유지 (네 번째 항목)
+    },
+    // ⭐ 새로 추가된 다섯 번째 항목입니다. ⭐
+    {
+        keyword: "SNS CONTENTS DESIGN",
+        description: "/", // 텍스트를 비워 두어 오버레이가 나타나지 않게 하거나 내용을 추가할 수 있습니다.
+        position: "top: 50%; left: 5%;", 
+        textColor: "text-white", 
+    },
+];
+
+// 헬퍼 함수: 텍스트가 비어 있는지 확인
+const hasDescription = (index: number) => textSets[index] && textSets[index].description && textSets[index].description.length > 0; // ⭐ textSets[index] null 체크 추가 (안전성 강화)
+
+// 헬퍼 함수: 각 섹션에 대해 2열 그리드가 필요한지 확인 (description이 있으면 그리드 레이아웃 적용)
+const needsGrid = (index: number) => hasDescription(index) && textSets[index].keyword && textSets[index].description;
+---
+
+<section class="min-h-screen font-sans relative">
+  
+  <Wrapper variant="standard" class="relative z-10 py-8 lg:py-16">
+      {/* 메인 페이지로 돌아가는 타이포그래피 링크와 상단 맥락 (Professional Projects) */}
+    <div class="mb-2 px-2 flex justify-between items-end"> 
+
+      {/* 2. 오른쪽: 프로젝트 종류 (작게, 회색) */}
+      <Text tag="p" class="text-base-500 uppercase font-medium text-3xl">
+        Professional Projects
+      </Text>
+      
+      {/* 1. 왼쪽: 메인 페이지 링크 (크게) */}
+      <a href="/" class="text-base-900 font-medium text-3xl hover:opacity-30 transition-opacity">
+        Back
+      </a>
+      
+    </div>
+    
+    {/* 메인 콘텐츠 영역 (기존 내용) */}
+    <div class="lg:p-1 rounded-lg text-base-900">
+      
+      {/* 메인 프로젝트 이미지 */}
+      <div class="mb-6 lg:mb-6">
+        <img
+          src={"https://res.cloudinary.com/dy9kxmf9g/image/upload/v1762535334/overlock1_dgz3ex.svg"}
+          alt={imageAlt}
+          width={1200}
+          height={800}
+          class="w-full aspect-video object-cover rounded-md"
+          loading="lazy"
+        />
+      </div>
+
+      {/* 페이지 번호 */}
+      <Text tag="p" variant="textSM" class="text-base-500 mb-2">
+        ({currentPage}/{totalPages})
+      </Text>
+
+      {/* 제목 및 상세 정보 그리드 (여기가 2열 그리드 시작점) */}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+        
+        {/* 1열: 프로젝트 제목 */}
+        <div>
+          <Text tag="h1" variant="text5XL" class="text-5xl font-bold leading-tight mt-0">
+            {projectTitle}
+          </Text>
+        </div>
+
+        {/* 2열: Project Details 및 상세 설명 (상단 상세 설명이 시작되는 곳) */}
+        <div class="flex flex-col gap-8">
+          
+          {/* Project Details 테이블 */}
+          <div class="">
+            <div class="grid grid-cols-3 gap-y-0 text-sm">
+              <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">{category}</Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                  {services.map(service => (<span class="block">{service}</span>))}
+                </Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+              <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+              <Text tag="p" variant="textSM" class="col-span-2 pt-1">{year}</Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+              <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Award</Text>
+              <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+              {award.map(award => (<span class="block">{award}</span>))}
+              </Text>
+              </div>
+              
+            </div>
+          </div>
+
+          {/* 상세 설명 텍스트 (하드코딩된 내용) */}
+          <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8">Overlock는 이음새를 뜻하는 단어로, 옛것의 아름다움을 잇는 수선 복합문화공간 브랜드입니다. 상권 위축으로 인해 사라진 이화여대길의 수선골목을 회복하고, 수선의 가치를 전달할 수 있는 복합문화공간을 기획하였습니다. 지나간 아름다움을 보존하며 새로움을 창조하는 브랜드의 철학을 설계하였고, 복합문화공간의 브랜드 아이덴티티 및 디자인 시스템을 개발하였습니다. 이 프로젝트는 실제 이화여대길의 유휴공간을 기반으로 기획되어 공간 디자인을 함께 설계하였고, 이화여대에서 우수 작품으로 선정되어 전시를 하게 되었습니다.</Text>
+            {/* fullDescription Prop 텍스트 (이전 요청에서 수정된 대로 분리) */}
+            <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+             {fullDescription}
+            </Text>
+        </div>
+        {/* 👆 상단 콘텐츠의 2열 끝 👆 */}
+
+      </div> {/* 제목 및 상세 정보 그리드 끝 */}
+      
+    </div> {/* 메인 콘텐츠 영역 끝 */}
+
+    
+    {/* --- 새로운 이미지/텍스트 섹션 --- */}
+    <div class="grid grid-cols-1 gap-8 pt-10 mt-100"> 
+        {contentSections.map((section, index) => (
+            
+            <div class={`mb-8 ${!hasDescription(index) ? '' : ''}`}>
+                
+                {/* 이미지: 배경처럼 깔리도록 w-full과 강제 높이를 유지합니다. */}
+                <img
+                    src={section.imageUrl}
+                    alt={section.imageAlt}
+                    width={1000}
+                    height={800}
+                    class="w-full object-cover rounded-lg"
+                    loading="lazy"
+                />
+
+                {/* 텍스트 오버레이 (description이 있는 경우에만 표시) */}
+                {hasDescription(index) ? (
+                    
+                    /* 텍스트 컨테이너: absolute와 인라인 스타일을 사용하여 원하는 위치에 배치합니다. */
+                    <div 
+                      class={`absolute p-6 lg:p-10 rounded-lg text-left grid grid-cols-1 gap-0 md:gap-4`}
+                      style={textSets[index].position}
+                    >
+                        
+                        {/* 1열: 키워드 (그리드 시작점) */}
+                        <div class="col-span-1">
+                            {/* 키워드: 텍스트는 textSets에서 가져옵니다. */}
+                            <Text tag="p" variant="textSM" class={`${textSets[index].textColor} uppercase font-medium mb-0`}> 
+                                {textSets[index].keyword}
+                            </Text>
+                        </div>
+
+                        {/* 2열: 설명 (그리드 두 번째 열) */}
+                        <div class="col-span-1">
+                            {/* 설명: 텍스트는 textSets에서 가져옵니다. */}
+                            <Text tag="p" variant="textMD" class={`${textSets[index].textColor} leading-relaxed w-[500px]`}> 
+                                {textSets[index].description}
+                            </Text>
+                        </div>
+                    </div>
+                ) : null}
+                
+            </div>
+        ))}
+    </div>
+    {/* --- 새로운 이미지/텍스트 섹션 끝 --- */}
+  
+  </Wrapper> {/* Wrapper 종료 */}
+
+</section>

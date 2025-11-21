@@ -1,36 +1,33 @@
 ---
 // assets
 import { Image } from "astro:assets";
-import swissm from "@/images/work/swissm.jpg";
-import helvetica from "@/images/work/helvetica.jpg";
-import principles from "@/images/work/principles.jpg";
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 const data = [
   {
-    image: swissm,
-    period: "2023–2025",
-    title: "Swiss Modernism Showcase",
-    description: `Curated and designed an exhibition highlighting the evolution of Swiss modernism in graphic design, showcasing iconic works and their influence on contemporary design.`,
-    location: "Zurich, Switzerland",
-    link: "#_",
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763654237/typemoji_1_1_a3gvlj.svg",
+    period: "2025",
+    title: "타입이모지 (Typemoji)",
+    description: `타입이모지는 글꼴의 형태를 반영한 이모지 제작 프로젝트입니다. 이모지의 형태적 실험과 관련된 어플리케이션을 디자인하였습니다.`,
+    location: "Graphic Design",
+    link: "/typemoji",
   },
   {
-    image: helvetica,
-    period: "2020–2023",
-    title: "Helvetica Redefined",
-    description: `Redesigned the Helvetica type specimen to include modern variations and applications. The work explored the typeface's versatility and its legacy in Swiss design.`,
-    location: "Basel, Switzerland",
-    link: "#_",
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763699603/aboutbeauty2_orzlir.png",
+    period: "2024",
+    title: "아름다움에 대하여 (About Beauty)",
+    description: `네덜란드 제품 디자이너, 베르트얀 핏의 아름다움에 대한 명언을 담은 포스터입니다. 판화 기법을 활용한 출력물과 디지털 인쇄 기법을 활용한 포스터를 제작하였습니다.`,
+    location: "Graphic Design",
+    link: "/about-beauty",
   },
   {
-    image: principles,
-    period: "2017–2020",
-    title: "Swiss Design Principles",
-    description: `Developed educational materials and workshops on the core principles of Swiss design, focusing on grid systems, typography, and minimalist aesthetics.`,
-    location: "Geneva, Switzerland",
-    link: "#_",
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763703359/700-08_1_kl0c6x.png",
+    period: "2024",
+    title: "700-08",
+    description: `『700-08』은 이화여자대학교의 중앙도서관 서적을 층서학적인 관점에서 분석하는 책입니다. 해당 제목은 예술 서적의 서고 번호를 가리키며 책 종이의 변화가 뚜렷한 700번부터 708번까지의 책들을 중심으로 다루었습니다.`,
+    location: "Editorial Design",
+    link: "/700-08",
   },
 ];
 ---
@@ -46,7 +43,7 @@ const data = [
           variant="textSM"
           class="text-base-900 font-bold uppercase"
         >
-          Work
+          Personal Projects
         </Text>
       </div>
       <div
@@ -80,13 +77,24 @@ const data = [
                   variant="textXS"
                   class="relative z-10 mt-1 text-base-600          "
                 >
+                    <span class="leading-[1.7]">
                   {work.description}
+                  </span>
+                </Text>
+                {/* Location 추가 */}
+                <Text
+                tag="p"
+                variant="textXS"
+                class="relative z-10 mt-5 text-sm text-base-500"
+                >
+                <span class="ml-0 w-2 h-2 bg-base-900 rounded-full inline-block"></span>
+                {work.location}
                 </Text>
               </div>
               <Text
                 tag="p"
                 variant="textXS"
-                class="relative z-10   flex items-center text-sm text-base-600    lg:ml-auto"
+                class="relative z-10 flex items-center text-sm text-base-600 lg:ml-auto"
               >
                 <time datetime={work.period}> {work.period}</time>
               </Text>

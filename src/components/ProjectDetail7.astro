@@ -1,0 +1,229 @@
+---
+import { Image } from "astro:assets";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// Props 정의
+interface Props {
+  mainImage: string;
+  imageAlt: string;
+  projectTitle: string;
+  currentPage: number;
+  totalPages: number;
+  category: string;
+  services: string[];
+  year: string;
+  fullDescription: string;
+}
+
+const {
+  mainImage,
+  imageAlt,
+  projectTitle,
+  currentPage,
+  totalPages,
+  category,
+  services,
+  year,
+  fullDescription,
+} = Astro.props;
+
+// 👇 1. 이미지 데이터 정의 (총 5개 항목)
+const contentSections = [
+    {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763696684/typemoji2_zfay5j.svg",
+        imageAlt: "프로젝트 시각 컨셉 이미지",
+    },
+      {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763696701/typemoji3_d8ygeg.svg",
+        imageAlt: "프로젝트 시각 컨셉 이미지",
+    },
+     {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763696707/typemoji4_jmeumu.svg",
+        imageAlt: "프로젝트 시각 컨셉 이미지",
+    },
+     {
+        imageUrl: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763696917/typemoji5_vgrdvm.svg",
+        imageAlt: "프로젝트 시각 컨셉 이미지",
+    },
+];
+
+// 👇 2. 텍스트 데이터 정의 (총 ⭐5개 항목⭐으로 수정)
+const textSets = [
+    {
+        keyword: "TYPEMOJI GUIDEBOOK",
+        description: "글자와 언제나 함께하는 타입이모지에 대한 기획 배경부터 디자인 프로세스 및 사용 방법에 대한 정보를 담은 가이드 북입니다. 각각의 서체별 타입이모지에 대해 5권으로 이루어져 있으며 모두 동일한 목차로 구성됩니다. 사용자가 이모지를 활용하는 데에 도움을 줄 수 있도록 합니다.",
+        position: "top: 30%; left: 5% ", 
+        textColor: "text-white",
+    },
+    {
+        keyword: "", 
+        description: "",
+        position: "top: 22.5%; left: 50%;", 
+        textColor: "text-base-600",
+    },
+    {
+        keyword: "TYPEMOJI TEST",
+        description: "가이드 북 좌측 상단에 NFC 태그를 달아 모바일 기기를 가까이 댔을 때 이모지를 종류별로 테스트해볼 수 있고, 다운로드를 받을 수 있는 사이트를 제공합니다. 가이드 북과 함께 이모지를 대화 창에서 텍스트와 함께 테스트해볼 수 있는 환경을 만들었습니다.",
+        position: "top: 57%; left: 5%;", 
+        textColor: "text-white",
+    },
+    {
+        keyword: "TYPEMOJI WEBSITE & APPLICATION",
+        description: "PC에서 서체와 함께 타입이모지를 테스트해보며 5종의 타입이모지 패키지를 다운받을 수 있는 웹사이트의 UI를 제작했습니다. 모바일 환경 뿐만 아니라 PC 환경에서 타입 이모지에 대한 업데이트를 확인할 수 있도록 관련 웹사이트를 디자인했습니다.", 
+        position: "top: 78%; left: 5%;",
+        textColor: "text-white", // 흰색 유지 (네 번째 항목)
+    },
+    // ⭐ 새로 추가된 다섯 번째 항목입니다. ⭐
+    {
+        keyword: "",
+        description: "", // 텍스트를 비워 두어 오버레이가 나타나지 않게 하거나 내용을 추가할 수 있습니다.
+        position: "top: 49%; left: 5%;", 
+        textColor: "text-white", 
+    },
+];
+
+// 헬퍼 함수: 텍스트가 비어 있는지 확인
+const hasDescription = (index: number) => textSets[index] && textSets[index].description && textSets[index].description.length > 0; // ⭐ textSets[index] null 체크 추가 (안전성 강화)
+
+// 헬퍼 함수: 각 섹션에 대해 2열 그리드가 필요한지 확인 (description이 있으면 그리드 레이아웃 적용)
+const needsGrid = (index: number) => hasDescription(index) && textSets[index].keyword && textSets[index].description;
+---
+
+<section class="min-h-screen font-sans relative">
+  
+  <Wrapper variant="standard" class="relative z-10 py-8 lg:py-16">
+      {/* 메인 페이지로 돌아가는 타이포그래피 링크와 상단 맥락 (Professional Projects) */}
+    <div class="mb-2 px-2 flex justify-between items-end"> 
+
+      {/* 2. 오른쪽: 프로젝트 종류 (작게, 회색) */}
+      <Text tag="p" class="text-base-500 uppercase font-medium text-3xl">
+        Personal Projects
+      </Text>
+      
+      {/* 1. 왼쪽: 메인 페이지 링크 (크게) */}
+      <a href="/" class="text-base-900 font-medium text-3xl hover:opacity-30 transition-opacity">
+        Back
+      </a>
+      
+    </div>
+    
+    {/* 메인 콘텐츠 영역 (기존 내용) */}
+    <div class="lg:p-1 rounded-lg text-base-900">
+      
+      {/* 메인 프로젝트 이미지 */}
+      <div class="mb-6 lg:mb-6">
+        <img
+          src={"https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763654237/typemoji_1_1_a3gvlj.svg"}
+          alt={imageAlt}
+          width={1200}
+          height={800}
+          class="w-full aspect-video object-cover rounded-md"
+          loading="lazy"
+        />
+      </div>
+
+      {/* 페이지 번호 */}
+      <Text tag="p" variant="textSM" class="text-base-500 mb-2">
+        ({currentPage}/{totalPages})
+      </Text>
+
+      {/* 제목 및 상세 정보 그리드 (여기가 2열 그리드 시작점) */}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
+        
+        {/* 1열: 프로젝트 제목 */}
+        <div>
+          <Text tag="h1" variant="text5XL" class="text-5xl font-bold leading-tight mt-0">
+            {projectTitle}
+          </Text>
+        </div>
+
+        {/* 2열: Project Details 및 상세 설명 (상단 상세 설명이 시작되는 곳) */}
+        <div class="flex flex-col gap-8">
+          
+          {/* Project Details 테이블 */}
+          <div class="">
+            <div class="grid grid-cols-3 gap-y-0 text-sm">
+              <Text tag="p" variant="textSM" class="font-medium text-base-800 col-span-full border-b border-base-500 pb-3 mb-0">Project Details</Text>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Category</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">{category}</Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+                <Text tag="p" variant="textSM" class="font-medium text-base-500 pt-1 col-span-1">Services</Text>
+                <Text tag="p" variant="textSM" class="col-span-2 pt-1">
+                  {services.map(service => (<span class="block">{service}</span>))}
+                </Text>
+              </div>
+              <div class="col-span-full grid grid-cols-3 border-b border-base-500 pb-3 mb-0">
+              <Text tag="p" variant="textSM" class="font-medium text-base-500 col-span-1 pt-1">Year</Text>
+              <Text tag="p" variant="textSM" class="col-span-2 pt-1">{year}</Text>
+              </div>
+            </div>
+          </div>
+
+          {/* 상세 설명 텍스트 (하드코딩된 내용) */}
+          <Text tag="p" variant="textMD" class="leading-relaxed text-base-600 mt-8">21세기 상형문자인 ‘이모지(Emoji)’는 텍스트가 전달하기 어려운 감정이나 기호를 직관적이고 풍부한 방식으로 전달합니다. 해당 프로젝트는 이모지와 글자가 폭넓고 일관성 있게 활용될 수 있도록 글꼴의 형태와 특징을 반영하여 이모지를 디자인했습니다. 산세리프, 세리프, 슬랩세리프, 블랙레터, 지오매트릭 계열 서체 5종을 선정하여 타입 이모지 종류에 따른 소개하는 포스터 20종과 이모지를 어플을 통해 테스트를 해볼 수 있는 가이드북과 어플리케이션을 제작하였습니다.</Text>
+            {/* fullDescription Prop 텍스트 (이전 요청에서 수정된 대로 분리) */}
+            <Text tag="p" variant="textMD" class="leading-relaxed text-base-600">
+             {fullDescription}
+            </Text>
+        </div>
+        {/* 👆 상단 콘텐츠의 2열 끝 👆 */}
+
+      </div> {/* 제목 및 상세 정보 그리드 끝 */}
+      
+    </div> {/* 메인 콘텐츠 영역 끝 */}
+
+    
+    {/* --- 새로운 이미지/텍스트 섹션 --- */}
+    <div class="grid grid-cols-1 gap-8 pt-10 mt-100"> 
+        {contentSections.map((section, index) => (
+            
+            <div class={`mb-8 ${!hasDescription(index) ? '' : ''}`}>
+                
+                {/* 이미지: 배경처럼 깔리도록 w-full과 강제 높이를 유지합니다. */}
+                <img
+                    src={section.imageUrl}
+                    alt={section.imageAlt}
+                    width={1000}
+                    height={800}
+                    class="w-full object-cover rounded-lg"
+                    loading="lazy"
+                />
+
+                {/* 텍스트 오버레이 (description이 있는 경우에만 표시) */}
+                {hasDescription(index) ? (
+                    
+                    /* 텍스트 컨테이너: absolute와 인라인 스타일을 사용하여 원하는 위치에 배치합니다. */
+                    <div 
+                      class={`absolute p-6 lg:p-10 rounded-lg text-left grid grid-cols-1 gap-0 md:gap-4`}
+                      style={textSets[index].position}
+                    >
+                        
+                        {/* 1열: 키워드 (그리드 시작점) */}
+                        <div class="col-span-1">
+                            {/* 키워드: 텍스트는 textSets에서 가져옵니다. */}
+                            <Text tag="p" variant="textSM" class={`${textSets[index].textColor} uppercase font-medium mb-0`}> 
+                                {textSets[index].keyword}
+                            </Text>
+                        </div>
+
+                        {/* 2열: 설명 (그리드 두 번째 열) */}
+                        <div class="col-span-1">
+                            {/* 설명: 텍스트는 textSets에서 가져옵니다. */}
+                            <Text tag="p" variant="textMD" class={`${textSets[index].textColor} leading-relaxed w-[500px]`}> 
+                                {textSets[index].description}
+                            </Text>
+                        </div>
+                    </div>
+                ) : null}
+                
+            </div>
+        ))}
+    </div>
+    {/* --- 새로운 이미지/텍스트 섹션 끝 --- */}
+  
+  </Wrapper> {/* Wrapper 종료 */}
+
+</section>
