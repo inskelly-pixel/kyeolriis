@@ -14,7 +14,7 @@ const data = [
     link: "/typemoji",
   },
   {
-    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763699848/aboutbeauty2_f73p4o.png",
+    image: "https://res.cloudinary.com/dy9kxmf9g/image/upload/v1763790334/aboutbeauty5_q3vc9e.png",
     period: "2024",
     title: "아름다움에 대하여 (About Beauty)",
     description: `네덜란드 제품 디자이너, 베르트얀 핏의 아름다움에 대한 명언을 담은 포스터입니다. 판화 기법을 활용한 출력물과 디지털 인쇄 기법을 활용한 포스터를 제작하였습니다.`,
@@ -51,13 +51,13 @@ const data = [
       >
         {
           data.map((work) => (
-            <article class=" relative grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start lg:sticky ">
+            <article class=" relative grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start lg:sticky">
               <Image
                 width={800}
                 height={600}
                 src={work.image}
                 alt={work.title}
-                class="lg:col-span-full aspect-12/7 object-cover object-top w-full"
+                class="lg:col-span-full aspect-12/7 object-cover object-top w-full rounded-md"
               />
               <div class="lg:col-span-2">
                 <Text
